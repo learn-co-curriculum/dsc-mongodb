@@ -5,6 +5,11 @@
 
 In this lesson, we'll learn about the popular NoSQL Database **_MongoDB_**, including how to install it on our machine, connect to a mongo database, add how to use it to **_C_**reate / **_R_**ead / **_U_**pdate / **_D_**elete (**CRUD**) data!
 
+## Objectives
+You will be able to:
+-  Use MongoDB, a popular NoSQL database
+-  Create, Read, Update, and Delete Information in MongoDB
+
 ## Installing and Running MongoDB
 
 This part is easy--in order to install mongoDB, we'll use our favorite package manager, conda! This part works the same, regardless of what operating system you're running. 
@@ -113,7 +118,7 @@ print(myclient.list_database_names())
 ```
 
     ['admin', 'config', 'example_database', 'lab_db', 'local', 'mydatabase', 'test']
-    
+
 
 This is because mongoDB doesn't actually create the new database until we have stored some data in it. The act of not doing something until absolutely necessary because another operation needs it is a programming concept called **_lazy execution_**. Since our `example_database` database doesn't contain any data yet, mongo hasn't created it yet, so it doesn't show up in the output of our `.list_database_names()` call. 
 
@@ -213,7 +218,7 @@ for x in query_1:
     {'_id': ObjectId('5cab8b2ff1210d1d443ec444'), 'name': 'Jane Doe', 'address': '234 elm street', 'age': 7}
     {'_id': ObjectId('5cab8b2ff1210d1d443ec445'), 'name': 'Santa Claus', 'address': 'The North Pole', 'age': 547}
     {'_id': ObjectId('5cab8b2ff1210d1d443ec446'), 'name': 'John Doe jr.', 'address': '', 'age': 0.5}
-    
+
 
 In the cell above, we grabbed every field from every item in the entire collection. There are times where this is probably too much data for it to be useful for us. 
 
@@ -230,7 +235,7 @@ for item in query_2:
     {'_id': ObjectId('5cab8b2ff1210d1d443ec444'), 'name': 'Jane Doe', 'address': '234 elm street'}
     {'_id': ObjectId('5cab8b2ff1210d1d443ec445'), 'name': 'Santa Claus', 'address': 'The North Pole'}
     {'_id': ObjectId('5cab8b2ff1210d1d443ec446'), 'name': 'John Doe jr.', 'address': ''}
-    
+
 
 In this method, we created a dictionary with the key of every item we want, and a `1` as the value to make clear that we want that field returned. 
 
@@ -247,7 +252,7 @@ for item in query_3:
     {'_id': ObjectId('5cab8b2ff1210d1d443ec444'), 'name': 'Jane Doe', 'address': '234 elm street'}
     {'_id': ObjectId('5cab8b2ff1210d1d443ec445'), 'name': 'Santa Claus', 'address': 'The North Pole'}
     {'_id': ObjectId('5cab8b2ff1210d1d443ec446'), 'name': 'John Doe jr.', 'address': ''}
-    
+
 
 Note that we can't use both methods at the same time. We have to either specify what we do want, and make sure that every value is a 1, or specify what we don't want, and make sure every corresponding value is a 0. If we pass in a dictionary containing both, we'll get an error in return. 
 
@@ -268,7 +273,7 @@ for item in query_4:
 ```
 
     {'_id': ObjectId('5cab8b2ff1210d1d443ec445'), 'name': 'Santa Claus', 'address': 'The North Pole', 'age': 547}
-    
+
 
 We can also filter queries by using **_Modifiers_**. For instance, let's say we wanted to get record for every person in our collection older than 20. We can signify this with the 'greater than' modifier, `"$gt"` and pass in the corresponding value. 
 
@@ -281,7 +286,7 @@ for item in query_5:
 
     {'_id': ObjectId('5cab8b2ff1210d1d443ec443'), 'name': 'John Doe', 'address': '123 elm street', 'age': 28}
     {'_id': ObjectId('5cab8b2ff1210d1d443ec445'), 'name': 'Santa Claus', 'address': 'The North Pole', 'age': 547}
-    
+
 
 We can even pass in **_Regular Expressions_** to filter text data and pattern match! You don't know regular expressions yet, but you will learn them in a few sections. When you do, we encourage you to try using them within a mongodb query!
 
@@ -303,7 +308,7 @@ for item in query_6:
 ```
 
     {'_id': ObjectId('5cab8b2ff1210d1d443ec443'), 'name': 'John Doe', 'address': '123 elm street', 'age': 29, 'birthday': '02/20/1986'}
-    
+
 
 In the cell above, the first update we make updates the value for a key that already exists in the document. The second update adds an entirely new key-value pair to the document. As we can see, the syntax for both is the same (just like when we work with python dictionaries), and is very easy and intuitive to use. 
 
@@ -320,7 +325,7 @@ print(deletion_1.deleted_count)
 ```
 
     1
-    
+
 
 Note that we can also use modifiers here, too! For instance, in the cell below, we'll delete all records for customers younger than 10.
 
@@ -331,7 +336,7 @@ print(deletion_2.deleted_count)
 ```
 
     1
-    
+
 
 
 ```python
@@ -342,7 +347,7 @@ for item in query_6:
 
     {'_id': ObjectId('5cab8b2ff1210d1d443ec445'), 'name': 'Santa Claus', 'address': 'The North Pole', 'age': 547}
     {'_id': ObjectId('5cab8b2ff1210d1d443ec446'), 'name': 'John Doe jr.', 'address': '', 'age': 0.5}
-    
+
 
 
 ```python
