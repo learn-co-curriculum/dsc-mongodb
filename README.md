@@ -18,7 +18,7 @@ To install mongoDB on your machine, open a terminal or conda command prompt and 
 
 `conda install mongodb`
 
-Next we have to create a directory to store our Mongo data files 
+Next, we have to create a directory to store our Mongo data files 
 
 `sudo mkdir -p /data/db`
 
@@ -70,7 +70,7 @@ Since we already have experience working with JSON, we'll see that it will actua
 
 To start the MongoDB server and connect to our database, we can just type `mongod` in the terminal or conda command prompt. This will create an instance of a MongoDB server containing our mongo database. 
 
-We're now connected to the mongo server. Next, we need to access this server's shell. To do this, open a new terminal window and type `mongo`. Now, you are inside your mongo server! To get started, we'll look at what databases this server has access to. Type the command `db`--you should see a database called `test`. 
+We're now connected to the mongo server. Next, we need to access this server's shell. To do this, open a new terminal window and type `mongo`. Now, you are inside your mongo server and can work with mongo files (databases). To get started, we'll look at what databases this server has access to. Type the command `db`--you should see a database called `test`. 
 
 The mongodb server that's running comes with a host of built-in functions that we can use. To see a full list of the functions for the mongo server itself, we can type `db.help()`. Similarly, the databases themselves have a host of built-ins and functions accessible to us to do things like count the total number of documents in the database and other tasks that might be useful. See those, we can access the documentation for the `test` database by typing `db.test.help()`
 
