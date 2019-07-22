@@ -123,7 +123,7 @@ Note that we can get a full list of the names of every database we have by runni
 print(myclient.list_database_names())
 ```
 
-    ['admin', 'config', 'example_database', 'lab_db', 'local', 'mydatabase', 'test']
+    ['admin', 'config', 'local']
 
 
 This is because mongoDB doesn't actually create the new database until we have stored some data in it. The act of not doing something until absolutely necessary because another operation needs it is a programming concept called **_lazy execution_**. Since our `example_database` database doesn't contain any data yet, mongo hasn't created it yet, so it doesn't show up in the output of our `.list_database_names()` call. 
@@ -139,7 +139,7 @@ In the cell below, we create a sample collection.
 mycollection = mydb['example_collection']
 ```
 
-Now we have a mongo database that contains a collection, but we still haven't added any data to it yet. We can get collection names by using `mydb.get_collection_names()`, but since we haven't added any data to it yet, we'll see that that hasn't been created yet either. 
+Now we have a mongo database that contains a collection, but we still haven't added any data to it yet. We can get collection names by using `mydb.list_collection_names()`, but since we haven't added any data to it yet, we'll see that that hasn't been created yet either. 
 
 Let's add some data to our database and see what we can do with it. 
 
@@ -158,7 +158,7 @@ results
 
 
 
-    <pymongo.results.InsertOneResult at 0x21658001608>
+    <pymongo.results.InsertOneResult at 0x104cd7908>
 
 
 
@@ -172,7 +172,7 @@ results.inserted_id
 
 
 
-    ObjectId('5cab8b2ff1210d1d443ec443')
+    ObjectId('5d35ffb254722712a2675be8')
 
 
 
@@ -197,9 +197,9 @@ results_2.inserted_ids
 
 
 
-    [ObjectId('5cab8b2ff1210d1d443ec444'),
-     ObjectId('5cab8b2ff1210d1d443ec445'),
-     ObjectId('5cab8b2ff1210d1d443ec446')]
+    [ObjectId('5d35ffb254722712a2675be9'),
+     ObjectId('5d35ffb254722712a2675bea'),
+     ObjectId('5d35ffb254722712a2675beb')]
 
 
 
@@ -220,10 +220,10 @@ for x in query_1:
     print(x)
 ```
 
-    {'_id': ObjectId('5cab8b2ff1210d1d443ec443'), 'name': 'John Doe', 'address': '123 elm street', 'age': 28}
-    {'_id': ObjectId('5cab8b2ff1210d1d443ec444'), 'name': 'Jane Doe', 'address': '234 elm street', 'age': 7}
-    {'_id': ObjectId('5cab8b2ff1210d1d443ec445'), 'name': 'Santa Claus', 'address': 'The North Pole', 'age': 547}
-    {'_id': ObjectId('5cab8b2ff1210d1d443ec446'), 'name': 'John Doe jr.', 'address': '', 'age': 0.5}
+    {'_id': ObjectId('5d35ffb254722712a2675be8'), 'name': 'John Doe', 'address': '123 elm street', 'age': 28}
+    {'_id': ObjectId('5d35ffb254722712a2675be9'), 'name': 'Jane Doe', 'address': '234 elm street', 'age': 7}
+    {'_id': ObjectId('5d35ffb254722712a2675bea'), 'name': 'Santa Claus', 'address': 'The North Pole', 'age': 547}
+    {'_id': ObjectId('5d35ffb254722712a2675beb'), 'name': 'John Doe jr.', 'address': '', 'age': 0.5}
 
 
 In the cell above, we grabbed every field from every item in the entire collection. There are times where this is probably too much data for it to be useful for us. 
@@ -237,10 +237,10 @@ for item in query_2:
     print(item)
 ```
 
-    {'_id': ObjectId('5cab8b2ff1210d1d443ec443'), 'name': 'John Doe', 'address': '123 elm street'}
-    {'_id': ObjectId('5cab8b2ff1210d1d443ec444'), 'name': 'Jane Doe', 'address': '234 elm street'}
-    {'_id': ObjectId('5cab8b2ff1210d1d443ec445'), 'name': 'Santa Claus', 'address': 'The North Pole'}
-    {'_id': ObjectId('5cab8b2ff1210d1d443ec446'), 'name': 'John Doe jr.', 'address': ''}
+    {'_id': ObjectId('5d35ffb254722712a2675be8'), 'name': 'John Doe', 'address': '123 elm street'}
+    {'_id': ObjectId('5d35ffb254722712a2675be9'), 'name': 'Jane Doe', 'address': '234 elm street'}
+    {'_id': ObjectId('5d35ffb254722712a2675bea'), 'name': 'Santa Claus', 'address': 'The North Pole'}
+    {'_id': ObjectId('5d35ffb254722712a2675beb'), 'name': 'John Doe jr.', 'address': ''}
 
 
 In this method, we created a dictionary with the key of every item we want, and a `1` as the value to make clear that we want that field returned. 
@@ -254,10 +254,10 @@ for item in query_3:
     print(item)
 ```
 
-    {'_id': ObjectId('5cab8b2ff1210d1d443ec443'), 'name': 'John Doe', 'address': '123 elm street'}
-    {'_id': ObjectId('5cab8b2ff1210d1d443ec444'), 'name': 'Jane Doe', 'address': '234 elm street'}
-    {'_id': ObjectId('5cab8b2ff1210d1d443ec445'), 'name': 'Santa Claus', 'address': 'The North Pole'}
-    {'_id': ObjectId('5cab8b2ff1210d1d443ec446'), 'name': 'John Doe jr.', 'address': ''}
+    {'_id': ObjectId('5d35ffb254722712a2675be8'), 'name': 'John Doe', 'address': '123 elm street'}
+    {'_id': ObjectId('5d35ffb254722712a2675be9'), 'name': 'Jane Doe', 'address': '234 elm street'}
+    {'_id': ObjectId('5d35ffb254722712a2675bea'), 'name': 'Santa Claus', 'address': 'The North Pole'}
+    {'_id': ObjectId('5d35ffb254722712a2675beb'), 'name': 'John Doe jr.', 'address': ''}
 
 
 Note that we can't use both methods at the same time. We have to either specify what we do want, and make sure that every value is a 1, or specify what we don't want, and make sure every corresponding value is a 0. If we pass in a dictionary containing both, we'll get an error in return. 
@@ -278,7 +278,7 @@ for item in query_4:
     print(item)
 ```
 
-    {'_id': ObjectId('5cab8b2ff1210d1d443ec445'), 'name': 'Santa Claus', 'address': 'The North Pole', 'age': 547}
+    {'_id': ObjectId('5d35ffb254722712a2675bea'), 'name': 'Santa Claus', 'address': 'The North Pole', 'age': 547}
 
 
 We can also filter queries by using **_Modifiers_**. For instance, let's say we wanted to get record for every person in our collection older than 20. We can signify this with the 'greater than' modifier, `"$gt"` and pass in the corresponding value. 
@@ -290,8 +290,8 @@ for item in query_5:
     print(item)
 ```
 
-    {'_id': ObjectId('5cab8b2ff1210d1d443ec443'), 'name': 'John Doe', 'address': '123 elm street', 'age': 28}
-    {'_id': ObjectId('5cab8b2ff1210d1d443ec445'), 'name': 'Santa Claus', 'address': 'The North Pole', 'age': 547}
+    {'_id': ObjectId('5d35ffb254722712a2675be8'), 'name': 'John Doe', 'address': '123 elm street', 'age': 28}
+    {'_id': ObjectId('5d35ffb254722712a2675bea'), 'name': 'Santa Claus', 'address': 'The North Pole', 'age': 547}
 
 
 We can even pass in **_Regular Expressions_** to filter text data and pattern match! You don't know regular expressions yet, but you will learn them in a few sections. When you do, we encourage you to try using them within a mongodb query!
@@ -313,7 +313,7 @@ for item in query_6:
     print(item)
 ```
 
-    {'_id': ObjectId('5cab8b2ff1210d1d443ec443'), 'name': 'John Doe', 'address': '123 elm street', 'age': 29, 'birthday': '02/20/1986'}
+    {'_id': ObjectId('5d35ffb254722712a2675be8'), 'name': 'John Doe', 'address': '123 elm street', 'age': 29, 'birthday': '02/20/1986'}
 
 
 In the cell above, the first update we make updates the value for a key that already exists in the document. The second update adds an entirely new key-value pair to the document. As we can see, the syntax for both is the same (just like when we work with python dictionaries), and is very easy and intuitive to use. 
@@ -351,8 +351,8 @@ for item in query_6:
     print(item)
 ```
 
-    {'_id': ObjectId('5cab8b2ff1210d1d443ec445'), 'name': 'Santa Claus', 'address': 'The North Pole', 'age': 547}
-    {'_id': ObjectId('5cab8b2ff1210d1d443ec446'), 'name': 'John Doe jr.', 'address': '', 'age': 0.5}
+    {'_id': ObjectId('5d35ffb254722712a2675bea'), 'name': 'Santa Claus', 'address': 'The North Pole', 'age': 547}
+    {'_id': ObjectId('5d35ffb254722712a2675beb'), 'name': 'John Doe jr.', 'address': '', 'age': 0.5}
 
 
 
@@ -363,7 +363,7 @@ mycollection.delete_many({})
 
 
 
-    <pymongo.results.DeleteResult at 0x2165802c248>
+    <pymongo.results.DeleteResult at 0x104d15388>
 
 
 
