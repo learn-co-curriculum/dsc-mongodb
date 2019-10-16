@@ -6,9 +6,12 @@
 In this lesson, we'll learn about the popular NoSQL database **_MongoDB_**, including how to install it on our machine, connect to a mongo database, add how to use it to **_C_**reate / **_R_**ead / **_U_**pdate / **_D_**elete (**CRUD**) data!
 
 ## Objectives
-You will be able to:
--  Use MongoDB, a popular NoSQL database
--  Create, Read, Update, and Delete Information in MongoDB
+You will be able to: 
+
+- Create a MongoDB database   
+- Insert data into a MongoDB database   
+- Read data from a MongoDB database   
+- Update data in a MongoDB database   
 
 ## Installing and Running MongoDB
 
