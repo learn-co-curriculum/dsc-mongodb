@@ -126,9 +126,6 @@ Note that we can get a full list of the names of every database we have by runni
 print(myclient.list_database_names())
 ```
 
-    ['admin', 'config', 'local']
-
-
 This is because mongoDB doesn't actually create the new database until we have stored some data in it. The act of not doing something until absolutely necessary because another operation needs it is a programming concept called **_lazy execution_**. Since our `example_database` database doesn't contain any data yet, mongo hasn't created it yet, so it doesn't show up in the output of our `.list_database_names()` call. 
 
 Just as a SQL database has tables, a mongo database has **_Collections_** of documents. We can get a collection or create a new one by passing its name to the database object we created, just like when we passed the database name to the client object. 
@@ -158,26 +155,12 @@ results = mycollection.insert_one(example_customer_data)
 results
 ```
 
-
-
-
-    <pymongo.results.InsertOneResult at 0x104cd7908>
-
-
-
 When we insert something into mongo, we get back a `results` object. This object contains the unique `_id` of the object we just inserted inside its `.inserted_id` attribute. 
 
 
 ```python
 results.inserted_id
 ```
-
-
-
-
-    ObjectId('5d35ffb254722712a2675be8')
-
-
 
 If we want to insert 2 or more items at the same time, we can just store the dictionary for each separate record we want to insert in a list, and then every item in that list by passing it to the collection object's `.insert_many()` method. 
 
@@ -197,15 +180,6 @@ results_2 = mycollection.insert_many(list_of_customers)
 results_2.inserted_ids
 ```
 
-
-
-
-    [ObjectId('5d35ffb254722712a2675be9'),
-     ObjectId('5d35ffb254722712a2675bea'),
-     ObjectId('5d35ffb254722712a2675beb')]
-
-
-
 Note that we are allowed to assign the unique id for each new document ourselves by just including the key `_id` and the value we want to assign as that document's id. However, in general, it is a best practice to let the database create the unique keys for each document itself, and to leave that part alone. 
 
 ### Querying data in Python
@@ -223,12 +197,6 @@ for x in query_1:
     print(x)
 ```
 
-    {'_id': ObjectId('5d35ffb254722712a2675be8'), 'name': 'John Doe', 'address': '123 elm street', 'age': 28}
-    {'_id': ObjectId('5d35ffb254722712a2675be9'), 'name': 'Jane Doe', 'address': '234 elm street', 'age': 7}
-    {'_id': ObjectId('5d35ffb254722712a2675bea'), 'name': 'Santa Claus', 'address': 'The North Pole', 'age': 547}
-    {'_id': ObjectId('5d35ffb254722712a2675beb'), 'name': 'John Doe jr.', 'address': '', 'age': 0.5}
-
-
 In the cell above, we grabbed every field from every item in the entire collection. There are times where this is probably too much data for it to be useful for us. 
 
 So what if we want to get all the names and addresses for each customer, but not the age? There are two ways we can do this. The first is by passing in a dictionary specifying the fields we want, like so:
@@ -240,12 +208,6 @@ for item in query_2:
     print(item)
 ```
 
-    {'_id': ObjectId('5d35ffb254722712a2675be8'), 'name': 'John Doe', 'address': '123 elm street'}
-    {'_id': ObjectId('5d35ffb254722712a2675be9'), 'name': 'Jane Doe', 'address': '234 elm street'}
-    {'_id': ObjectId('5d35ffb254722712a2675bea'), 'name': 'Santa Claus', 'address': 'The North Pole'}
-    {'_id': ObjectId('5d35ffb254722712a2675beb'), 'name': 'John Doe jr.', 'address': ''}
-
-
 In this method, we created a dictionary with the key of every item we want, and a `1` as the value to make clear that we want that field returned. 
 
 Conversely, if we'd rather specify the key-value pairs we _don't_ want returned, we can do that too. All we have to do is create a dictionary containing the keys we don't want returned, and set the value for each to `0`, like so:
@@ -256,12 +218,6 @@ query_3 = mycollection.find({}, {'age': 0})
 for item in query_3:
     print(item)
 ```
-
-    {'_id': ObjectId('5d35ffb254722712a2675be8'), 'name': 'John Doe', 'address': '123 elm street'}
-    {'_id': ObjectId('5d35ffb254722712a2675be9'), 'name': 'Jane Doe', 'address': '234 elm street'}
-    {'_id': ObjectId('5d35ffb254722712a2675bea'), 'name': 'Santa Claus', 'address': 'The North Pole'}
-    {'_id': ObjectId('5d35ffb254722712a2675beb'), 'name': 'John Doe jr.', 'address': ''}
-
 
 Note that we can't use both methods at the same time. We have to either specify what we do want, and make sure that every value is a 1, or specify what we don't want, and make sure every corresponding value is a 0. If we pass in a dictionary containing both, we'll get an error in return. 
 
@@ -281,9 +237,6 @@ for item in query_4:
     print(item)
 ```
 
-    {'_id': ObjectId('5d35ffb254722712a2675bea'), 'name': 'Santa Claus', 'address': 'The North Pole', 'age': 547}
-
-
 We can also filter queries by using **_Modifiers_**. For instance, let's say we wanted to get record for every person in our collection older than 20. We can signify this with the 'greater than' modifier, `"$gt"` and pass in the corresponding value. 
 
 
@@ -292,10 +245,6 @@ query_5 = mycollection.find({"age": {"$gt": 20}})
 for item in query_5:
     print(item)
 ```
-
-    {'_id': ObjectId('5d35ffb254722712a2675be8'), 'name': 'John Doe', 'address': '123 elm street', 'age': 28}
-    {'_id': ObjectId('5d35ffb254722712a2675bea'), 'name': 'Santa Claus', 'address': 'The North Pole', 'age': 547}
-
 
 We can even pass in **_Regular Expressions_** to filter text data and pattern match! You don't know regular expressions yet, but you will learn them in a few sections. When you do, we encourage you to try using them within a mongodb query!
 
@@ -316,9 +265,6 @@ for item in query_6:
     print(item)
 ```
 
-    {'_id': ObjectId('5d35ffb254722712a2675be8'), 'name': 'John Doe', 'address': '123 elm street', 'age': 29, 'birthday': '02/20/1986'}
-
-
 In the cell above, the first update we make updates the value for a key that already exists in the document. The second update adds an entirely new key-value pair to the document. As we can see, the syntax for both is the same (just like when we work with Python dictionaries), and is very easy and intuitive to use. 
 
 ### Deleting Records
@@ -333,19 +279,13 @@ deletion_1 = mycollection.delete_one({'name': 'John Doe'})
 print(deletion_1.deleted_count)
 ```
 
-    1
-
-
 Note that we can also use modifiers here, too! For instance, in the cell below, we'll delete all records for customers younger than 10.
 
 
 ```python
-deletion_2 = mycollection.delete_one({'age': {'$lt': 10}})
+deletion_2 = mycollection.delete_many({'age': {'$lt': 10}})
 print(deletion_2.deleted_count)
 ```
-
-    1
-
 
 
 ```python
@@ -354,21 +294,10 @@ for item in query_6:
     print(item)
 ```
 
-    {'_id': ObjectId('5d35ffb254722712a2675bea'), 'name': 'Santa Claus', 'address': 'The North Pole', 'age': 547}
-    {'_id': ObjectId('5d35ffb254722712a2675beb'), 'name': 'John Doe jr.', 'address': '', 'age': 0.5}
-
-
 
 ```python
 mycollection.delete_many({})
 ```
-
-
-
-
-    <pymongo.results.DeleteResult at 0x104d15388>
-
-
 
 **_Note:_** Be _very careful_ when using `delete_many()` -- passing in an empty dictionary will delete the entire collection -- it is the mongoDB equivalent of  `DROP TABLE`, and can really ruin your day if you aren't careful!
 
