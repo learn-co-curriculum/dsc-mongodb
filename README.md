@@ -5,10 +5,10 @@ In this lesson, we will learn about the popular NoSQL database __MongoDB__. In p
 
 We will also cover essential functions you will need to perform to interact with data in a NoSQL database. You can remember these skills using the acronym __CRUD__, or in other words:
 
-- __C__reate a MongoDB database with MongoDB Atlas
-- __R__ead data from a MongoDB database
-- __U__pdate data from a MongoDB database
-- __D__elete data from a MongoDB database
+- Create a MongoDB database with MongoDB Atlas
+- Read data from a MongoDB database
+- Update data from a MongoDB database
+- Delete data from a MongoDB database
 
 ## Learning Objectives
 You will be able to:
